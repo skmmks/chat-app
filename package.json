@@ -1,0 +1,28 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "Realtime chat application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skmmks/chat-app.git"
+  },
+  "author": "Steve Min",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skmmks/chat-app/issues"
+  },
+  "homepage": "https://github.com/skmmks/chat-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "socket.io": "^3.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
