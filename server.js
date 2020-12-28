@@ -2,10 +2,13 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const socketio = require('socket.io');
+const formatMessage = require('./utils/messages');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+
+const botName = 'Chat Bot';
 
 //Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -13,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Run when client connects
 io.on('connection', (socket) => {
   // Welcome current user
-  socket.emit('message', 'Welcome to ChatCord');
+  socket.emit('message', formatMessage(botName, 'Welcome to the ChatRoom'));
 
   //Broadcast when user enters
   socket.emit('message', 'A user has joined the chat');
