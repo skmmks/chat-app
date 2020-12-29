@@ -23,6 +23,6 @@ chatForm.addEventListener('submit', (e) => {
 function outputMessage(message) {
   const div = document.createElement('div');
   div.classList.add('message');
-  div.innerHTML = `${message}`;
+  div.innerHTML = `${message.username} ${message.text} ${message.time}`;
   document.querySelector('.chat-messages').appendChild(div);
 }
