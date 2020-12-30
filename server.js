@@ -19,11 +19,12 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', ({ username, room }) => {
     const user = userJoin(socket.id, username, room);
     socket.join(user.room);
+
     // Welcome current user
     socket.emit('message', formatMessage(botName, 'Welcome to the ChatRoom'));
 
     //Broadcast when user enters
-    socket.emit('message', formatMessage(botName, 'A user has joined the chat'));
+    socket.broadcast.to(user.room).emit('message', formatMessage(botName, 'A user has joined the chat'));
   });
 
   // Listen for chatMessage
