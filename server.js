@@ -3,6 +3,7 @@ const path = require('path');
 const http = require('http');
 const socketio = require('socket.io');
 const formatMessage = require('./utils/messages');
+const { userJoin, getCurrentUser } = require('./utils/users');
 
 const app = express();
 const server = http.createServer(app);
@@ -16,6 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Run when client connects
 io.on('connection', (socket) => {
   socket.on('joinRoom', ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+    socket.join(user.room);
     // Welcome current user
     socket.emit('message', formatMessage(botName, 'Welcome to the ChatRoom'));
 
