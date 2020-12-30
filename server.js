@@ -15,20 +15,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Run when client connects
 io.on('connection', (socket) => {
-  // Welcome current user
-  socket.emit('message', formatMessage(botName, 'Welcome to the ChatRoom'));
+  socket.on('joinRoom', ({ username, room }) => {
+    // Welcome current user
+    socket.emit('message', formatMessage(botName, 'Welcome to the ChatRoom'));
 
-  //Broadcast when user enters
-  socket.emit('message', formatMessage(botName, 'A user has joined the chat'));
-
-  //Broadcast when disconnect
-  socket.on('disconnect', () => {
-    io.emit('message', formatMessage(botName, 'A user has left the chat'));
+    //Broadcast when user enters
+    socket.emit('message', formatMessage(botName, 'A user has joined the chat'));
   });
 
   // Listen for chatMessage
   socket.on('chatMessage', (msg) => {
     io.emit('message', formatMessage('USER', msg));
+  });
+
+  //Broadcast when disconnect
+  socket.on('disconnect', () => {
+    io.emit('message', formatMessage(botName, 'A user has left the chat'));
   });
 });
 
