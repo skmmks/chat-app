@@ -11,6 +11,11 @@ const socket = io();
 
 socket.emit('joinRoom', { username, room });
 
+socket.on('roomUsers', ({ room, users }) => {
+  outputRoomName(room);
+  outputUsers(users);
+});
+
 socket.on('message', (message) => {
   console.log(message);
   outputMessage(message);
@@ -37,4 +42,10 @@ function outputMessage(message) {
 
 function outputRoomName(room) {
   roomName.innerText = room;
+}
+
+function outputUsers(users) {
+  userList.innerHTML = `
+    ${users.map((user) => `<li>${user.username}</li>`).join('')}
+  `;
 }
