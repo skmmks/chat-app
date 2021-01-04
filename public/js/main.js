@@ -43,7 +43,15 @@ chatForm.addEventListener('submit', (e) => {
 function outputMessage(message) {
   const div = document.createElement('div');
   div.classList.add('message');
-  div.innerHTML = `${message.username} ${message.text} ${message.time}`;
+  const p = document.createElement('p');
+  p.classList.add('meta');
+  p.innerText = message.username;
+  p.innerHTML += `<span>${message.time}</span>`;
+  div.appendChild(p);
+  const para = document.createElement('p');
+  para.classList.add('text');
+  para.innerText = message.text;
+  div.appendChild(para);
   document.querySelector('.chat-messages').appendChild(div);
 }
 
@@ -52,7 +60,10 @@ function outputRoomName(room) {
 }
 
 function outputUsers(users) {
-  userList.innerHTML = `
-    ${users.map((user) => `<li>${user.username}</li>`).join('')}
-  `;
+  userList.innerHTML = '';
+  users.forEach((user) => {
+    const li = document.createElement('li');
+    li.innerText = user.username;
+    userList.appendChild(li);
+  });
 }
